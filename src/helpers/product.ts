@@ -4,7 +4,9 @@ export interface ProductWithTotalPrice extends Product {
   totalPrice: number;
 }
 
-export const computeProductTotalPrice = (product: Product): ProductWithTotalPrice => {
+export const computeProductTotalPrice = (
+  product: Product,
+): ProductWithTotalPrice => {
   if (product.discountPercentage === 0) {
     return {
       ...product,
@@ -12,10 +14,10 @@ export const computeProductTotalPrice = (product: Product): ProductWithTotalPric
     };
   }
 
-  const totalPrice =
+  const totalDiscount =
     Number(product.basePrice) * (product.discountPercentage / 100);
   return {
     ...product,
-    totalPrice,
+    totalPrice: Number(product.basePrice) - totalDiscount,
   };
 };
